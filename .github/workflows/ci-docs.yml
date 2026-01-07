@@ -20,9 +20,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # --------------------------------------------------
-      # Checkout
-      # --------------------------------------------------
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -110,39 +107,17 @@ jobs:
           fi
 
       # --------------------------------------------------
-      # Run tests via CTest (generate gcda)
+      # Run tests with ctest (generate gcda + XML)
       # --------------------------------------------------
-      - name: Run tests with CTest (generate gcda)
+      - name: Run tests with ctest
         run: |
           set -euxo pipefail
           cd build
-          ctest --output-on-failure
+          # Ejecuta los tests y genera reporte JUnit en ../ctest-report.xml
+          ctest --output-on-failure --output-junit ../ctest-report.xml
 
       # --------------------------------------------------
-      # Export gtest XML from each *unitTests binary
-      # --------------------------------------------------
-      - name: Export gtest XML from unit test binaries
-        run: |
-          set -euxo pipefail
-          cd build
-
-          TEST_BINS="$(find . -maxdepth 1 -type f -perm -u+x -name '*unitTests' || true)"
-          echo "TEST_BINS=$TEST_BINS"
-
-          if [ -z "$TEST_BINS" ]; then
-            echo "No *unitTests binaries found; skipping gtest XML export."
-            exit 0
-          fi
-
-          for bin in $TEST_BINS; do
-            name="$(basename "$bin")"
-            xml="../gtest_${name}.xml"
-            echo "Exporting gtest XML for $name -> $xml"
-            "./$name" --gtest_output=xml:"$xml"
-          done
-
-      # --------------------------------------------------
-      # Check gcda exists (runtime, non-fatal)
+      # Check gcda exists (runtime)
       # --------------------------------------------------
       - name: Check gcda exists (runtime)
         run: |
@@ -151,7 +126,7 @@ jobs:
           echo "GCDA_COUNT=$GCDA_COUNT"
           find build -name '*.gcda' | head -n 30 || true
           if [ "$GCDA_COUNT" -eq 0 ]; then
-            echo "WARNING: No .gcda files found. No coverage data produced."
+            echo "WARNING: No .gcda files found. No tests executed or no coverage data yet."
           fi
 
       # --------------------------------------------------
@@ -163,72 +138,69 @@ jobs:
           mkdir -p site/unit_tests site/coverage site/doxygen
 
       # --------------------------------------------------
-      # Unit test HTML report (aggregate all gtest_*.xml)
+      # Unit test HTML report (a partir de ctest-report.xml)
       # --------------------------------------------------
       - name: Generate unit test report
         run: |
           set -euxo pipefail
           mkdir -p site/unit_tests
+          python3 - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
 
-          XMLS="$(ls gtest_*.xml 2>/dev/null || true)"
-          if [ -z "$XMLS" ]; then
-            echo "No gtest_*.xml found; generating placeholder Unit Tests page."
-            printf '%s\n' \
-              '<!doctype html>' \
-              '<html>' \
-              '<head><meta charset="utf-8"><title>Unit Tests</title></head>' \
-              '<body>' \
-              '  <h1>Unit Tests</h1>' \
-              '  <p>No UnitTests executables or gtest XML files were found.</p>' \
-              '  <p>This page will update automatically once tests are available.</p>' \
-              '</body>' \
-              '</html>' \
-              > site/unit_tests/index.html
-            exit 0
-          fi
+          xml_path = Path("ctest-report.xml")
 
-          python3 - << 'PY'
-            import glob
-            import xml.etree.ElementTree as ET
-            from pathlib import Path
+          if not xml_path.exists():
+              html = """<!doctype html>
+          <html>
+          <head><meta charset="utf-8"><title>Unit Tests</title></head>
+          <body>
+            <h1>Unit Tests</h1>
+            <p>No UnitTests executables or gtest XML files were found.</p>
+            <p>This page will update automatically once tests are available.</p>
+          </body>
+          </html>
+          """
+          else:
+              root = ET.parse(xml_path).getroot()
+              tests = []
 
-            tests = []
+              # Estructura JUnit: <testsuites><testsuite><testcase/></testsuite>...</testsuites>
+              for suite in root.findall("testsuite"):
+                  sname = suite.get("name", "")
+                  for tc in suite.findall("testcase"):
+                      tname = tc.get("name", "")
+                      full = f"{sname}.{tname}" if sname else tname
+                      status = "PASS"
+                      if tc.find("failure") is not None or tc.find("error") is not None:
+                          status = "FAIL"
+                      tests.append((full, status))
 
-            for path in glob.glob("gtest_*.xml"):
-                root = ET.parse(path).getroot()
-                for suite in root.findall("testsuite"):
-                    sname = suite.get("name", "")
-                    for tc in suite.findall("testcase"):
-                        tname = tc.get("name", "")
-                        full = f"{sname}.{tname}"
-                        failed = tc.find("failure") is not None
-                        tests.append((full, not failed))
+              total = len(tests)
+              passed = sum(1 for _, status in tests if status == "PASS")
+              pct = (100.0 * passed / total) if total else 0.0
 
-            total = len(tests)
-            passed = sum(1 for _, ok in tests if ok)
-            pct = (100.0 * passed / total) if total else 0.0
+              rows = "\n".join(
+                  f"<tr><td><code>{name}</code></td><td>{status}</td></tr>"
+                  for name, status in tests
+              )
 
-            rows = "\n".join(
-                f"<tr><td><code>{name}</code></td><td>{'PASS' if ok else 'FAIL'}</td></tr>"
-                for name, ok in tests
-            )
-
-            html = f"""<!doctype html>
-            <html>
-            <head><meta charset="utf-8"><title>Unit Tests</title></head>
-            <body>
+              html = f"""<!doctype html>
+          <html>
+          <head><meta charset="utf-8"><title>Unit Tests</title></head>
+          <body>
             <h1>Unit Tests</h1>
             <p><b>Result:</b> {passed}/{total} passed ({pct:.1f}%)</p>
             <table border="1" cellpadding="6">
-                <tr><th>Test</th><th>Status</th></tr>
-                {rows}
+              <tr><th>Test</th><th>Status</th></tr>
+              {rows}
             </table>
-            </body>
-            </html>
-            """
+          </body>
+          </html>
+          """
 
-            Path("site/unit_tests/index.html").write_text(html, encoding="utf-8")
-            PY
+          Path("site/unit_tests/index.html").write_text(html, encoding="utf-8")
+          PY
 
       # --------------------------------------------------
       # Debug: show flags and coverage files (helps if it breaks)
@@ -302,10 +274,8 @@ jobs:
         run: |
           set -euxo pipefail
           doxygen docs/Doxyfile
-
           OUT="docs_out/html"
           echo "Copying Doxygen output from: $OUT"
-
           if [ -d "$OUT" ]; then
             mkdir -p site/doxygen
             cp -R "$OUT"/* site/doxygen/
@@ -326,7 +296,7 @@ jobs:
           fi
 
       # --------------------------------------------------
-      # Landing page (no heredoc/EOF issues)
+      # Landing page (no heredoc/EOF)
       # --------------------------------------------------
       - name: Create index page
         shell: bash
