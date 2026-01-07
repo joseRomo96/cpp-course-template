@@ -289,7 +289,7 @@ jobs:
             '*/_deps/*' \
             '*/tests/*' \
             --output-file coverage.filtered.info \
-            --ignore-errors mismatch \
+            --ignore-errors mismatch,unused \
             --rc geninfo_unexecuted_blocks=1
 
           lcov --summary coverage.filtered.info
