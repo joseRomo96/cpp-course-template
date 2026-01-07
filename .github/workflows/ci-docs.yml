@@ -146,61 +146,67 @@ jobs:
       # --------------------------------------------------
       - name: Generate unit test report
         run: |
+          set -euxo pipefail
+
+          # If the XML exists, parse it. Otherwise create a placeholder.
           if [ -f "gtest.xml" ]; then
-            python3 - <<'PY'
-            import xml.etree.ElementTree as ET
-            from pathlib import Path
+            echo "Generating detailed gtest report..."
+            python3 << 'EOF'
+import xml.etree.ElementTree as ET
+from pathlib import Path
 
-            root = ET.parse("gtest.xml").getroot()
-            tests = []
+root = ET.parse("gtest.xml").getroot()
+tests = []
 
-            for suite in root.findall("testsuite"):
-                sname = suite.get("name", "")
-                for tc in suite.findall("testcase"):
-                    tname = tc.get("name", "")
-                    full = f"{sname}.{tname}"
-                    failed = tc.find("failure") is not None
-                    tests.append((full, not failed))
+for suite in root.findall("testsuite"):
+    sname = suite.get("name", "")
+    for tc in suite.findall("testcase"):
+        tname = tc.get("name", "")
+        full = f"{sname}.{tname}"
+        failed = tc.find("failure") is not None
+        tests.append((full, not failed))
 
-            total = len(tests)
-            passed = sum(1 for _, ok in tests if ok)
-            pct = (100.0 * passed / total) if total else 0.0
+total = len(tests)
+passed = sum(1 for _, ok in tests if ok)
+pct = (100.0 * passed / total) if total else 0.0
 
-            rows = "\n".join(
-                f"<tr><td><code>{name}</code></td><td>{'PASS' if ok else 'FAIL'}</td></tr>"
-                for name, ok in tests
-            )
+rows = "\n".join(
+    f"<tr><td><code>{name}</code></td><td>{'PASS' if ok else 'FAIL'}</td></tr>"
+    for name, ok in tests
+)
 
-            html = f"""<!doctype html>
-            <html>
-            <head><meta charset="utf-8"><title>Unit Tests</title></head>
-            <body>
-              <h1>Unit Tests</h1>
-              <p><b>Result:</b> {passed}/{total} passed ({pct:.1f}%)</p>
-              <table border="1" cellpadding="6">
-                <tr><th>Test</th><th>Status</th></tr>
-                {rows}
-              </table>
-            </body>
-            </html>
-            """
+html = f"""<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Unit Tests</title></head>
+<body>
+  <h1>Unit Tests</h1>
+  <p><b>Result:</b> {passed}/{total} passed ({pct:.1f}%)</p>
+  <table border="1" cellpadding="6">
+    <tr><th>Test</th><th>Status</th></tr>
+    {rows}
+  </table>
+</body>
+</html>
+"""
 
-            Path("site/unit_tests/index.html").write_text(html, encoding="utf-8")
-            PY
+Path("site/unit_tests/index.html").write_text(html, encoding="utf-8")
+EOF
+
           else
-            cat > site/unit_tests/index.html << 'HTML'
-            <!doctype html>
-            <html>
-            <head><meta charset="utf-8"><title>Unit Tests</title></head>
-            <body>
-              <h1>Unit Tests</h1>
-              <p>No UnitTests executable or gtest.xml found yet.</p>
-              <p>Once instructor tests are added and the UnitTests target is built,
-              this page will show a detailed summary of the results.</p>
-            </body>
-            </html>
-            HTML
+            echo "gtest.xml not found. Creating placeholder page..."
+            cat << 'EOF' > site/unit_tests/index.html
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Unit Tests</title></head>
+<body>
+  <h1>Unit Tests</h1>
+  <p>No UnitTests executable or gtest.xml found yet.</p>
+  <p>This page will update automatically once tests are available.</p>
+</body>
+</html>
+EOF
           fi
+
 
 
       # --------------------------------------------------
