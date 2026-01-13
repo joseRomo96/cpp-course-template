@@ -1,0 +1,14 @@
+<map id="Example Lesson" name="Example Lesson">
+<area shape="rect" id="Node000002" href="$group__CourseLessons.html" title=" " alt="" coords="5,228,128,253"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="176,228,304,253"/>
+<area shape="rect" id="Node000003" href="$group__ExampleLesson__01__RepositoryPurpose.html" title=" " alt="" coords="386,5,534,31"/>
+<area shape="rect" id="Node000004" href="$group__ExampleLesson__02__RepositoryStructure.html" title=" " alt="" coords="383,55,537,80"/>
+<area shape="rect" id="Node000005" href="$group__ExampleLesson__03__FileExtensions.html" title=" " alt="" coords="400,104,520,129"/>
+<area shape="rect" id="Node000006" href="$group__ExampleLesson__04__PrivateVsPublic.html" title=" " alt="" coords="382,153,538,179"/>
+<area shape="rect" id="Node000007" href="$group__ExampleLesson__05__ExamplesVsUnitTests.html" title=" " alt="" coords="373,203,547,228"/>
+<area shape="rect" id="Node000008" href="$group__ExampleLesson__06__CMakeIntegration.html" title=" " alt="" coords="389,252,531,277"/>
+<area shape="rect" id="Node000009" href="$group__ExampleLesson__07__DocsPhilosophy.html" title=" " alt="" coords="361,301,559,327"/>
+<area shape="rect" id="Node000010" href="$group__ExampleLesson__08__WhyUseThisTemplate.html" title=" " alt="" coords="375,351,545,376"/>
+<area shape="rect" id="Node000011" href="$group__ExampleLesson__09__Boilerplate.html" title=" " alt="" coords="352,400,568,425"/>
+<area shape="rect" id="Node000012" href="$group__ExampleLesson__10__Summary.html" title=" " alt="" coords="393,449,527,475"/>
+</map>

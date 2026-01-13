@@ -1,0 +1,9 @@
+<map id="Local Workflow" name="Local Workflow">
+<area shape="rect" id="Node000001" title=" " alt="" coords="159,104,279,129"/>
+<area shape="rect" id="Node000003" href="$group__CG__LocalWorkflow__01__Building.html" title=" " alt="" coords="389,5,463,31"/>
+<area shape="rect" id="Node000004" href="$group__CG__LocalWorkflow__02__RunningExecutables.html" title=" " alt="" coords="347,55,505,80"/>
+<area shape="rect" id="Node000005" href="$group__CG__LocalWorkflow__03__UnitTesting.html" title=" " alt="" coords="377,104,475,129"/>
+<area shape="rect" id="Node000006" href="$group__CG__LocalWorkflow__04__CoverageTesting.html" title=" " alt="" coords="359,153,493,179"/>
+<area shape="rect" id="Node000007" href="$group__CG__LocalWorkflow__05__Doxygen.html" title=" " alt="" coords="327,203,525,228"/>
+<area shape="rect" id="Node000002" href="$group__CourseGuide.html" title=" " alt="" coords="5,104,111,129"/>
+</map>

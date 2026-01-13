@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['page_20and_20documentation_20groups_0',['Main Page and Documentation Groups',['../group__CG__LocalWorkflow__05__Doxygen.html#autotoc_md124',1,'']]],
+  ['pages_1',['pages',['../group__CG__04__GitHubWorkflow.html#autotoc_md145',1,'2.4 Why Students Should Enable GitHub Pages'],['../group__ExampleLesson__03__FileExtensions.html#autotoc_md167',1,'3.4 &lt;tt&gt;.dox&lt;/tt&gt; (Documentation Pages)']]],
+  ['pages_20students_20instructors_2',['2.2 Enabling GitHub Pages (Students &amp; Instructors)',['../group__CG__04__GitHubWorkflow.html#autotoc_md139',1,'']]],
+  ['pages_20urls_3',['2.3 GitHub Pages URLs',['../group__CG__04__GitHubWorkflow.html#autotoc_md141',1,'']]],
+  ['pages_20you_20document_3a_4',['In &lt;tt&gt;.dox&lt;/tt&gt; pages you document:',['../group__ExampleLesson__07__DocsPhilosophy.html#autotoc_md180',1,'']]],
+  ['philosophy_5',['philosophy',['../group__ExampleLesson__07__DocsPhilosophy.html#autotoc_md178',1,'7.0 Documentation Philosophy'],['../group__ExampleLesson__07__DocsPhilosophy.html',1,'Documentation Philosophy']]],
+  ['pipeline_6',['3.1 &lt;tt&gt;ci.yml&lt;/tt&gt; — Main CI Pipeline',['../group__CG__04__GitHubWorkflow.html#autotoc_md149',1,'']]],
+  ['portal_7',['C++ Course Template — Documentation Portal',['../index.html',1,'']]],
+  ['powershell_8',['Windows (PowerShell)',['../group__CG__LocalWorkflow__05__Doxygen.html#autotoc_md122',1,'']]],
+  ['powershell_20cmd_9',['4. Running Executables on Windows (PowerShell / CMD)',['../group__CG__LocalWorkflow__02__RunningExecutables.html#autotoc_md55',1,'']]],
+  ['private_20apis_10',['4.0 Public vs Private APIs',['../group__ExampleLesson__04__PrivateVsPublic.html#autotoc_md168',1,'']]],
+  ['private_20implementation_11',['Private Implementation',['../group__ExampleLesson__04__PrivateVsPublic.html#autotoc_md170',1,'']]],
+  ['private_20vs_20public_20api_12',['Private Vs Public API',['../group__ExampleLesson__04__PrivateVsPublic.html',1,'']]],
+  ['project_20locally_13',['Building the Project Locally',['../group__CG__LocalWorkflow__01__Building.html#autotoc_md28',1,'']]],
+  ['project_20structure_20overview_14',['Project Structure Overview',['../group__CG__LocalWorkflow__01__Building.html#autotoc_md30',1,'']]],
+  ['public_20api_15',['public api',['../group__ExampleLesson__04__PrivateVsPublic.html',1,'Private Vs Public API'],['../group__ExampleLesson__04__PrivateVsPublic.html#autotoc_md169',1,'Public API']]],
+  ['public_20header_20—_20tt_20course_20include_20lectureexample_5fpublicapi_20hpp_20tt_16',['Public header — &lt;tt&gt;course/include/LectureExample_publicAPI.hpp&lt;/tt&gt;',['../group__ExampleLesson__09__Boilerplate.html#autotoc_md184',1,'']]],
+  ['public_20header_20—_20tt_20student_20include_20studentexample_5fpublicapi_20hpp_20tt_17',['Public header — &lt;tt&gt;student/include/StudentExample_publicAPI.hpp&lt;/tt&gt;',['../group__ExampleLesson__09__Boilerplate.html#autotoc_md189',1,'']]],
+  ['public_20vs_20private_20apis_18',['4.0 Public vs Private APIs',['../group__ExampleLesson__04__PrivateVsPublic.html#autotoc_md168',1,'']]],
+  ['purpose_19',['Repository Purpose',['../group__ExampleLesson__01__RepositoryPurpose.html',1,'']]],
+  ['purpose_20of_20the_20github_20workflow_20',['1.0 Purpose of the GitHub Workflow',['../group__CG__04__GitHubWorkflow.html#autotoc_md133',1,'']]],
+  ['purpose_20of_20the_20template_21',['1.0 Purpose of the Template',['../group__ExampleLesson__01__RepositoryPurpose.html#autotoc_md161',1,'']]]
+];
