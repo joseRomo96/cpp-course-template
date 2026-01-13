@@ -15,6 +15,8 @@ cmake_install.cmake
 CTestTestfile.cmake
 Makefile
 compile_commands.json
+ctest.xml
+Testing/
 
 # --------------------------------------------------
 # Coverage files (generated)
@@ -25,11 +27,6 @@ compile_commands.json
 coverage*.info
 coverage_html/
 coverage/
-
-# --------------------------------------------------
-# Doxygen output (generated)
-# --------------------------------------------------
-docs_out/
 
 # --------------------------------------------------
 # IDE / Editor
@@ -49,4 +46,4 @@ Thumbs.db
 # --------------------------------------------------
 # CI
 # --------------------------------------------------
-.site/
+site/

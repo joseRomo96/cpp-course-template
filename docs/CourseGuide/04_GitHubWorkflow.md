@@ -1,5 +1,4 @@
-\page GitHubWorkflow GitHub Workflow
-\ingroup CG_GitHubWorkflow
+\addtogroup CG_04_GitHubWorkflow
 
 This page explains how GitHub Actions, CI testing, and documentation publishing
 work in the C++ Course Template. It includes setup steps for both **students**

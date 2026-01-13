@@ -4,10 +4,10 @@
 namespace LectureLib {
 
 /**
- * @brief Función interna utilizada por la implementación de MyPublicAPI.
+ * @brief Internal function used by the implementation of MyPublicAPI.
  *
- * No forma parte de la API pública del curso. Se declara aquí para
- * separar la interfaz pública de los detalles privados.
+ * This is not part of the public API of the course. It is declared here
+ * to separate the public interface from private implementation details.
  */
 void MyPrivateAPI();
 

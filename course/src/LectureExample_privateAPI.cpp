@@ -7,7 +7,7 @@ namespace LectureLib {
 void MyPublicAPI() {
     std::cout << "[LectureExample] MyPublicAPI() called" << std::endl;
 
-    // Lógica interna delegada a la API privada.
+    // Internal logic delegated to the private API.
     MyPrivateAPI();
 }
 

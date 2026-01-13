@@ -42,17 +42,14 @@ See: \ref CG_Lesson0
 The first lesson explaining how the course template is organized.
 
 
-\defgroup CG_RepositorySetup Repository Setup
+\defgroup CG_01_RepositorySetup Repository Setup
 \ingroup CourseGuide
 
-\defgroup CG_DirectoryStructure Directory Structure
+\defgroup CG_02_DirectoryStructure Directory Structure
 \ingroup CourseGuide
 
-\defgroup CG_LocalWorkflow Local Workflow
+\defgroup CG_03_LocalWorkflow Local Workflow
 \ingroup CourseGuide
 
-\defgroup CG_GitHubWorkflow GitHub Workflow
-\ingroup CourseGuide
-
-\defgroup CG_Lesson0 Lesson 0
+\defgroup CG_04_GitHubWorkflow GitHub Workflow
 \ingroup CourseGuide

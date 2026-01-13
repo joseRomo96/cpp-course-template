@@ -109,6 +109,19 @@ if(ENABLE_TESTING)
     include(CTest)
     enable_testing()
 
+    include(FetchContent)
+
+    FetchContent_Declare(
+        googletest
+        URL https://github.com/google/googletest/archive/refs/tags/v1.15.2.zip
+    )
+
+    # Evitamos que GoogleTest active tests internos
+    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+    FetchContent_MakeAvailable(googletest)
+    include(GoogleTest)
+
     # --- course/tests ---
     file(GLOB COURSE_TESTS CONFIGURE_DEPENDS
         "${CMAKE_CURRENT_LIST_DIR}/course/tests/*.cc"
@@ -120,7 +133,9 @@ if(ENABLE_TESTING)
         add_executable(${test_name} "${test_file}")
         target_link_libraries(${test_name}
             PRIVATE
-                StudentLib
+                StudentLib           # <- StudentLib, para poder testear código del alumno + CourseLib
+                GTest::gtest
+                GTest::gtest_main
         )
 
         add_test(
@@ -141,6 +156,8 @@ if(ENABLE_TESTING)
         target_link_libraries(${test_name}
             PRIVATE
                 StudentLib    # ya arrastra CourseLib
+                GTest::gtest
+                GTest::gtest_main
         )
 
         add_test(
@@ -149,4 +166,3 @@ if(ENABLE_TESTING)
         )
     endforeach()
 endif()
-

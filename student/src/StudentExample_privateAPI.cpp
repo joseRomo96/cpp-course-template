@@ -1,18 +1,20 @@
 #include "StudentExample_privateAPI.hpp"
 
-// Incluye aquí cualquier header adicional que necesites.
+// Include any additional headers you need here.
+#include <iostream>
 
 namespace StudentLib {
 
-// Implementación mínima que compila; los alumnos deben completarla.
+// Minimal implementation that compiles; students must complete it.
 void MyPublicAPI() {
-    // TODO: Implementa la lógica requerida por la lección.
-    // Esta llamada es opcional; puedes modificarla o eliminarla.
+    std::cout << "[LectureExample_StudentExample] MyPublicAPI() called" << std::endl;
+
+    // Internal logic delegated to the private API.
     MyPrivateAPI();
 }
 
 void MyPrivateAPI() {
-    // TODO: Implementa aquí la lógica interna de apoyo.
+    std::cout << "[LectureExample_StudentExample] MyPrivateAPI() called" << std::endl;
 }
 
 } // namespace StudentLib

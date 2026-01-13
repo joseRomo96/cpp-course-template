@@ -1,21 +1,19 @@
+#include <gtest/gtest.h>
 #include <LectureExample_publicAPI.hpp>
+// Note: normally you DO NOT test private APIs directly
 #include "../src/LectureExample_privateAPI.hpp"
 
-#include <cassert>
+TEST(LectureExampleTest, PublicAPIRuns) {
+    // If the function does not crash or throw, the test passes
+    EXPECT_NO_FATAL_FAILURE(LectureLib::MyPublicAPI());
+}
 
-/**
- * @brief Pruebas mínimas de ejemplo para la implementación del profesor.
- *
- * Más adelante, si usas un framework (Catch2, doctest, GoogleTest),
- * este archivo puede migrarse fácilmente.
- */
-int main() {
-    // Verificamos que las funciones se pueden invocar sin fallar.
-    LectureLib::MyPublicAPI();
-    LectureLib::MyPrivateAPI();
+TEST(LectureExampleTest, PrivateAPIRuns) {
+    EXPECT_NO_FATAL_FAILURE(LectureLib::MyPrivateAPI());
+}
 
-    // Placeholder de aserción.
-    assert(1 == 1);
-
-    return 0;
+// GoogleTest main entry point
+int main(int argc, char** argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }

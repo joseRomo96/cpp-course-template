@@ -4,10 +4,10 @@
 namespace StudentLib {
 
 /**
- * @brief Función interna para tu implementación.
+ * @brief Internal function for your implementation.
  *
- * Puedes modificar esta firma durante el curso si lo necesitas.
- * No forma parte de la API pública.
+ * You may modify this function signature during the course if needed.
+ * It is not part of the public API.
  */
 void MyPrivateAPI();
 

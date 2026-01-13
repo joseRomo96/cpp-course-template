@@ -1,4 +1,4 @@
-\addtogroup CG_DirectoryStructure
+\addtogroup CG_02_DirectoryStructure
 
 This page describes the structure of the repository and the purpose of
 each top-level directory.
@@ -71,5 +71,7 @@ CMake defines:
 
 Examples and tests follow naming conventions:
 
-- `*_target.cpp` → example executables  
-- `*_unitTests.cc` → test executables (automatically registered with CTest)
+- `course/examples/*.cpp` → course example executables  
+- `student/examples/*.cpp` → student example executables  
+- `course/tests/*.cc` → course test executables (automatically registered with CTest)
+- `student/tests/*.cc` → student test executables (automatically registered with CTest)

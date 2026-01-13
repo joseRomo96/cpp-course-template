@@ -1,4 +1,4 @@
-\addtogroup CG_RepositorySetup
+\addtogroup CG_01_RepositorySetup
 
 This page explains how to fork, clone, and prepare the repository for
 local development, including how to fetch updates from the instructor.
